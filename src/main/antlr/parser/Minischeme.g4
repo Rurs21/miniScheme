@@ -26,10 +26,10 @@
  * Adapted for minischeme by François-Xavier Guillemette
  */
 
-grammar Minischeme;
+grammar miniScheme;
 
 @header {
-package minischeme.parser;
+package miniScheme.parser;
 }
 
 sexpr
