@@ -26,7 +26,7 @@
  * Adapted for minischeme by François-Xavier Guillemette
  */
 
-grammar miniScheme;
+grammar Minischeme;
 
 @header {
 package miniScheme.parser;
