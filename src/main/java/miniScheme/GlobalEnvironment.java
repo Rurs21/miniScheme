@@ -66,6 +66,17 @@ public class GlobalEnvironment {
       return list.subList(1,list.size());
     });
 
+    //TODO String support
+    env.put("eq", (Procedure) (List<Object> params) ->
+      params.stream().map(el -> {
+        if (el instanceof Integer) return (double) el;
+        else return el;
+      }).distinct().toArray().length <= 1);
+
+    env.put("and", (Procedure) (List<Object> params) -> ! params.contains(false));
+
+    env.put("not", (Procedure) (List<Object> params) -> ! (boolean) params.get(0));
+
     return env;
   }
 }
