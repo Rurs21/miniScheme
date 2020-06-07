@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'antlr'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0' // UberJar
 }
 
 java {
@@ -27,6 +28,18 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClassName = 'miniScheme.App'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'miniScheme.App'
+    }
+}
+
+shadowJar {
+    archiveBaseName = 'miniScheme'
+    classifier = ''
+    archiveVersion = ''
 }
 
 generateGrammarSource {
