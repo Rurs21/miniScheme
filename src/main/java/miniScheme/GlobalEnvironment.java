@@ -53,6 +53,19 @@ public class GlobalEnvironment {
       return xs.stream().filter(x -> (boolean) fn.call(List.of(x))).collect(toList());
     });
 
+    env.put("count", (Procedure) (List<Object> params) -> {
+      return (double) ((List<Object>) params.get(0)).size();
+    });
+
+    env.put("head", (Procedure) (List<Object> params) -> {
+      return ((List<Object>) params.get(0)).get(0);
+    });
+
+    env.put("tail", (Procedure) (List<Object> params) -> {
+      var list = (List<Object>) params.get(0);
+      return list.subList(1,list.size());
+    });
+
     return env;
   }
 }
