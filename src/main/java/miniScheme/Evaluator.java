@@ -32,6 +32,9 @@ public class Evaluator {
       env.put((String) tail.get(0), eval(tail.get(1), env));
       return null;
     }
+    else if (head.equals("lambda")) {
+      return new Lambda((List<String>) tail.get(0), (List<Object>) tail.get(1), this, env);
+    }
     else {
       final var proc = (Procedure) eval(head, env);
       if (tail.size() == 0) {
