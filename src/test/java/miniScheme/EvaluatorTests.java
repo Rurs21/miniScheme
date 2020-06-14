@@ -27,10 +27,35 @@ class EvaluatorTests {
     assertEquals(24.0, result);
   }
 
-  @Test void variableDefinitionTest() {
+  @Test void numberVariableDefinitionTest() {
     List<Object> program = List.of("define", "pi", 3.141592);
     Object result = evaluator.eval(program, env);
     assertEquals(3.141592, env.get("pi"));
+  }
+
+  @Test void stringVariableDefinitionTest() {
+    List<Object> program = List.of("define", "foo", "bar");
+    Object result = evaluator.eval(program, env);
+    assertEquals("bar", env.get("foo"));
+  }
+
+  @Test void listVariableDefinitionTest() {
+    List<Object> program =
+            List.of("begin",
+                    List.of("define", "listTest", (List.of("list","foo", "bar")))
+            );
+    Object result = evaluator.eval(program, env);
+    assertEquals( List.of("foo","bar"), env.get("listTest"));
+  }
+
+  @Test void variableDefinitionTest() {
+    List<Object> program =
+            List.of("begin",
+                    List.of("define", "var1", "value"),
+                    List.of("define", "var2", "var1")
+            );
+    Object result = evaluator.eval(program, env);
+    assertEquals("value", env.get("var2"));
   }
 
   @Test void variableUseTest() {
