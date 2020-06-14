@@ -15,10 +15,12 @@ class EvaluatorTests {
 
   private Evaluator evaluator;
   private Map<String, Object> env;
+  private List<Object> sample;
 
   @BeforeEach void init() {
     this.evaluator = new Evaluator();
     this.env = GlobalEnvironment.build();
+    this.sample = List.of("list", 3.1416,"Test",400);
   }
 
   @Test void multiplicationTest() {
@@ -128,4 +130,49 @@ class EvaluatorTests {
     assertEquals(120.0, result);
   }
 
+  @Test void beginTest(){
+    List<Object> program = List.of("begin", sample);
+    Object result = evaluator.eval(program, env);
+    assertEquals(List.of(3.1416,"Test",400), result);
+  }
+
+  @Test void countTest() {
+    List<Object> program = List.of("count", sample);
+    Object result = evaluator.eval(program, env);
+    assertEquals(3.0, result);
+  }
+
+  @Test void headTest() {
+    List<Object> program = List.of("head", sample);
+    Object result = evaluator.eval(program, env);
+    assertEquals(3.1416, result);
+  }
+
+  @Test void tailTest() {
+    List<Object> program = List.of("tail", sample);
+    Object result = evaluator.eval(program, env);
+    assertEquals(List.of("Test",400), result);
+  }
+
+  @Test void logicTrueAndTest(){
+    List<Object> program = List.of("and", true, true);
+    Object result = evaluator.eval(program, env);
+    assertTrue((boolean) result);
+  }
+
+  @Test void logicTrueNotTest(){
+    List<Object> program = List.of("not", false);
+    Object result = evaluator.eval(program, env);
+    assertTrue((boolean) result);
+  }
+
+  @Test void filterNumberTest() {
+    List<Object> program = List.of("begin",
+            List.of("define","listTest", List.of("list", 30.0,40.5)),
+            List.of("define", "filterTest",
+                    List.of("lambda", List.of("elem"), List.of("eq", 30.0, "elem"))),
+            List.of("filter","filterTest", "listTest"));
+    Object result = evaluator.eval(program, env);
+    assertEquals(List.of(30.0), result);
+  }
 }
