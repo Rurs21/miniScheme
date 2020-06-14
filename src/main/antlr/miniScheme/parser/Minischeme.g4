@@ -48,6 +48,7 @@ list
 atom
    : NUMBER
    | SYMBOL
+   | STRING
    ;
 
 
@@ -58,6 +59,10 @@ WHITESPACE
 LINE_COMMENT
   : ';;' ~[\r\n]* -> skip
   ;
+
+STRING
+   : '"' .*? '"'
+   ;
 
 NUMBER
    : ('+' | '-')? (DIGIT) + ('.' (DIGIT) +)?

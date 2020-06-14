@@ -10,7 +10,8 @@ public class Evaluator {
   @SuppressWarnings("unchecked")
   public Object eval(final Object expr, final Map<String, Object> env) {
     if (expr instanceof String) {
-      return env.get((String) expr);
+      if (env.containsKey(expr)) return env.get((String) expr);
+      else  return (String) expr;
     }
     else if (! (expr instanceof List)) {
       return expr;

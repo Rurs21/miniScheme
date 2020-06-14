@@ -29,6 +29,8 @@ public class MinischemeDefaultVisitor extends MinischemeBaseVisitor<Object> {
         case "#f": return false;
         default: return symbol;
       }
+    } else if (ctx.STRING() != null) {
+      return String.valueOf(ctx.STRING().getText());
     } else {
       return Double.valueOf(ctx.NUMBER().getText());
     }
