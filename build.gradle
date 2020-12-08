@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'antlr'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '5.2.0' // UberJar
+    id 'com.github.johnrengelman.shadow' version '6.1.0' // UberJar
 }
 
 java {
@@ -16,18 +16,18 @@ repositories {
 }
 
 dependencies {
-    antlr 'org.antlr:antlr4:4.8-1'
+    antlr 'org.antlr:antlr4:4.9'
 
     // Use JUnit Jupiter API for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
 
     // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 application {
     // Define the main class for the application.
-    mainClassName = 'miniScheme.App'
+    mainClass.set('miniScheme.App')
 }
 
 jar {
@@ -37,6 +37,7 @@ jar {
 }
 
 shadowJar {
+    mainClassName = 'miniScheme.App'
     archiveBaseName = 'miniScheme'
     classifier = ''
     archiveVersion = ''
