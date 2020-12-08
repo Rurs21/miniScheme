@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'antlr'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0' // UberJar
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_14
+    targetCompatibility = JavaVersion.VERSION_14
+}
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    antlr 'org.antlr:antlr4:4.8-1'
+
+    // Use JUnit Jupiter API for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+
+    // Use JUnit Jupiter Engine for testing.
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+}
+
+application {
+    // Define the main class for the application.
+    mainClassName = 'miniScheme.App'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'miniScheme.App'
+    }
+}
+
+shadowJar {
+    archiveBaseName = 'miniScheme'
+    classifier = ''
+    archiveVersion = ''
+}
+
+generateGrammarSource {
+    arguments += ['-visitor', '-no-listener']
+}
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+}
